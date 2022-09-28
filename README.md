@@ -1,115 +1,100 @@
-                       EX NO 4 : Multivariate Analysis
-AIM:
+# Ex-04-Multivariate-Analysis
+# AIM
+To perform Multivariate EDA on the given data set.
 
-   To Perform Multivariate Analysis
-Algorithm:
+# Explanation
+Exploratory data analysis is used to understand the messages within a dataset. This technique involves many iterative processes to ensure that the cleaned data is further sorted to better understand the useful meaning.The primary aim with exploratory analysis is to examine the data for distribution, outliers and anomalies to direct specific testing of your hypothesis.
 
-1.Read the given data
+# ALGORITHM
+## STEP 1
+Import the built libraries required to perform EDA and outlier removal.
 
-2.Get information from the data
+## STEP 2
+Read the given csv file
 
-3.Perform the Multivariate Analysis
+## STEP 3
+Convert the file into a dataframe and get information of the data.
 
-4.Save the clean data to file
+## STEP 4
+Return the objects containing counts of unique values using (value_counts()).
 
-Program:
+## STEP 5
+Plot the counts in the form of Histogram or Bar Graph.
 
-reading the file
+## STEP 6
+Use seaborn the bar graph comparison of data can be viewed.
+
+## STEP 7
+Find the pairwise correlation of all columns in the dataframe.corr()
+
+## STEP 8
+Save the final data set into the file
+
+# CODE
+```
+/* 
+Name : shaik.sadulla
+Register Number : 212220040151
+**Multivariate EDA - SuperStore.csv**
 import pandas as pd
-
-import seaborn as sns
-
-df=pd.read_csv("/content/SuperStore.csv")
-
-data=df
-
-Scatterplot
-import pandas as pd
-
-import seaborn as sns
-
-import matplotlib.pyplot as plt
-
-sns.scatterplot (df['Postal Code'],df['Sales'])
-
-image
-
-Barplot
-import pandas as pd
-
-import seaborn as sns
-
-sns.barplot (x=df["Postal Code"], y=df["Sales"], data=df)
-
-image
-
-Scatterplot
-import pandas as pd
-
-import seaborn as sns
-
-sns.scatterplot(df["Postal Code"], y=df["Sales"], hue=df['Row ID'])
-
-image
-
-df.info()
-
-image
-
-states=df.loc[:,["Postal Code","Sales"]]
-
-states=states.groupby(by=["Postal Code"]).sum().sort_values(by="Sales")
-
-sns.barplot(x=states.index,y="Sales",data=states)
-
-plt.xticks(rotation = 90)
-
-plt.xlabel=("Postal Code")
-
-plt.ylabel=("SALES")
-
-plt.show()
-
-image
-
-states=df.loc[:,["Segment","Sales"]]
-
-states=states.groupby(by=["Segment"]).sum().sort_values(by="Sales")
-
-#plt.figure(figsize=(10,7))
-
-sns.barplot(x=states.index,y="Sales",data=states)
-
-plt.xticks(rotation = 90)
-
-plt.xlabel=("Segment")
-
-plt.ylabel=("Sales")
-
-plt.show()
-
-image
-
 import numpy as np
-
-import seaborn as sn
-
+import seaborn as sbn
 import matplotlib.pyplot as plt
-
-data=pd.read_csv("/content/SuperStore.csv")
-
-data = np.random.randint(low = 1, high = 100, size = (10, 10))
-
-print("The data to be plotted:\n")
-
-print(data)
-
-hm = sn.heatmap(data = data)
-
+df = pd.read_csv("/content/SuperStore.csv")
+df.head(10)
+df.info()
+df.describe()
+df.isnull().sum()
+df['Postal Code'] = df["Postal Code"].fillna(df['Postal Code'].mode()[0])
+df.isnull().sum()
+df.dtypes
+sbn.scatterplot(df['Postal Code'],df['Sales'])
+states=df.loc[:,["State","Sales"]]
+states=states.groupby(by=["State"]).sum().sort_values(by="Sales")
+plt.figure(figsize=(17,7))
+sbn.barplot(x=states.index,y="Sales",data=states)
+plt.xticks(rotation = 90)
+plt.xlabel=("STATES")
+plt.ylabel=("SALES")
 plt.show()
+states=df.loc[:,["State","Postal Code"]]
+states=states.groupby(by=["State"]).sum().sort_values(by="Postal Code")
+plt.figure(figsize=(17,7))
+sbn.barplot(x=states.index,y="Postal Code",data=states)
+plt.xticks(rotation = 90)
+plt.xlabel=("STATES")
+plt.ylabel=("Postal Code")
+plt.show()
+states=df.loc[:,["Segment","Sales"]]
+states=states.groupby(by=["Segment"]).sum().sort_values(by="Sales")
+#plt.figure(figsize=(10,7))
+sbn.barplot(x=states.index,y="Sales",data=states)
+plt.xticks(rotation = 90)
+plt.xlabel=("SEGMENT")
+plt.ylabel=("SALES")
+plt.show()
+sbn.barplot(df['Postal Code'],df['Ship Mode'],hue=df['Region'])
+df.corr()
+sbn.heatmap(df.corr(),annot=True)
+*/
+```
+# OUPUT
+## EDA - SuperStore.csv
+![EDA](/images/img.png)
+## Displaying information about Dataset
+![EDA](/images/img2.png)
+## Checking the null values and Cleaning it
+![EDA](/images/img3.png)
+## Displaying datatypes of each features
+![EDA](/images/img4.png)
+## Multivariate Analysis - Scatterplot
+![EDA](/images/img5.png)
+## Multivariate Analysis - Barplot
+![EDA](/images/img6.png)
+![EDA](/images/img7.png)
+![EDA](/images/img8.png)
+## Correlation Coefficient Interpretation using HeatMap
+![EDA](/images/img9.png)
 
-image
-
-Result: Multivariate-Analysis is performed on given data and saved
-
-
+# RESULT
+Thus the program to perform EDA on the given data set is successfully executed.
